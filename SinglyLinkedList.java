@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class SinglyLinkedList<E> {
 
     private static class Node {
@@ -42,6 +44,14 @@ class SinglyLinkedList<E> {
             current = current.next;
 
         }
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public void setFirst(Node newHead) {
+        this.head = newHead;
     }
 
     public boolean isEmpty() {
@@ -95,6 +105,34 @@ class SinglyLinkedList<E> {
         return answer;
     }
 
+    public void removeByName(String name) {
+        Node current = this.head;
+
+        for (int i = 0; i < this.size; i++) {
+            System.out.println(i);
+
+            if (current.getNext().getElement().getName().equals(name)) {
+
+                if (current.getNext().getNext() == null) {
+                    current.setNext(null);
+                    this.tail = current;
+                    this.size--;
+                    break;
+
+                } else {
+
+                    current.setNext(current.getNext().getNext());
+                    this.size--;
+                    break;
+                }
+
+            }
+
+            current = current.next;
+        }
+
+    }
+
     public boolean isIn(Bird bird) {
 
         boolean result = false;
@@ -129,6 +167,35 @@ class SinglyLinkedList<E> {
             }
 
             current = current.next;
+
+        }
+    }
+
+    // TODO : reimplement, time complexity ok but alot of memory and can be sorted
+    // in place
+    // instead
+    public void sort() {
+        Bird[] birds = new Bird[this.size];
+        int storedSize = this.size;
+        Node current = this.head;
+
+        for (int i = 0; i < this.size; i++) {
+
+            birds[i] = current.getElement();
+
+            current = current.next;
+        }
+
+        Arrays.sort(birds);
+
+        for (int i = 0; i < storedSize; i++) {
+            this.removeFirst();
+
+        }
+
+        for (int i = 0; i < storedSize; i++) {
+
+            this.addLast(birds[i]);
 
         }
     }

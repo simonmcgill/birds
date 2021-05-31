@@ -1,4 +1,4 @@
-class Bird {
+class Bird implements Comparable<Bird> {
     private String name;
     private int count;
 
@@ -17,5 +17,9 @@ class Bird {
 
     public void incrementCount() {
         this.count += 1;
+    }
+
+    public int compareTo(Bird bird) {
+        return this.count - bird.getCount();
     }
 }
